@@ -66,11 +66,12 @@
     "build": "bash scripts/build.sh",
     "build:client": "tsdown --config ./tsdown.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node tests/smoke.mjs && node tests/unit.mjs && node tests/boundary.mjs && node tests/scenario.mjs",
+    "test": "node tests/smoke.mjs && node tests/client-load.mjs && node tests/unit.mjs && node tests/boundary.mjs && node tests/scenario.mjs",
     "test:unit": "node tests/unit.mjs",
     "test:boundary": "node tests/boundary.mjs",
     "test:scenario": "node tests/scenario.mjs",
-    "test:smoke": "node tests/smoke.mjs"
+    "test:smoke": "node tests/smoke.mjs",
+    "test:client": "node tests/client-load.mjs"
   },
   "license": "MIT"
 }

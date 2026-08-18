@@ -66,14 +66,11 @@ export function apply(ctx: ClientContext): void {
   ctx.effect(
     () =>
       ctx.slots.inject('settings.plugin.item', function* () {
-        yield ctx.slots.register(
-          {
-            name: 'settings.plugin.item',
-            key: NS,
-            inject: () => face(),
-          },
-          RemoteAccessCard,
-        )
+        yield ctx.slots.register({
+          name: 'settings.plugin.item',
+          key: NS,
+          inject: () => face(),
+        }, RemoteAccessCard)
       }),
     'dsh-remote-access: settings card',
   )
@@ -81,15 +78,12 @@ export function apply(ctx: ClientContext): void {
   ctx.effect(
     () =>
       ctx.slots.inject('shell.overlay', function* () {
-        yield ctx.slots.register(
-          {
-            name: 'shell.overlay',
-            id: 'dsh-remote-access-lock',
-            order: 100000,
-            inject: () => face(),
-          },
-          LockOverlay,
-        )
+        yield ctx.slots.register({
+          name: 'shell.overlay',
+          id: 'dsh-remote-access-lock',
+          order: 100000,
+          inject: () => face(),
+        }, LockOverlay)
       }),
     'dsh-remote-access: lock overlay',
   )

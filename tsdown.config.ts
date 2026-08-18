@@ -66,6 +66,10 @@ export default defineConfig([
     // plugin's own UI code and bcryptjs). A require() the table cannot answer
     // is a guaranteed runtime throw, so the rule is the table list itself.
     noExternal: (id: string) => (CLIENT_EXTERNALS.includes(id) ? undefined : true),
+    // bcryptjs imports node:crypto as an RNG fallback; the browser module
+    // table cannot answer it, so alias it to an empty stub (Web Crypto is the
+    // real source in browsers).
+    alias: { crypto: new URL('./src/client/crypto-shim.ts', import.meta.url).pathname },
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? 'production'),
     },
