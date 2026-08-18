@@ -218,4 +218,38 @@ function headerWithTitle(root, titleFragment) {
   assert(!emojiPattern.test(stripped), 'no emoji in rendered card markup')
 }
 
+// --- 7. Usage guide renders the full runnable flow ---------------------------
+{
+  const tree = await mount()
+  const root = tree.root
+  const cardHeader = findByClassName(root, 'dra-card-header')[0]
+  await act(async () => { cardHeader.props.onClick() })
+  const helpHeader = headerWithTitle(root, '使用指引')
+  assert(helpHeader !== undefined, 'guide section header present (renamed from Beginner Guide)')
+  assert(!root.findAll(n => n.props && typeof n.props.className === 'string' && n.props.className.includes('dra-acc-title') && String(n.children ?? '').includes('小白')).length, 'no old name 小白 used')
+  await act(async () => { helpHeader.props.onClick() })
+
+  const html = root.toTree ? '' : ''
+  // Assert every phase title of the end-to-end flow is rendered.
+  const texts = root.findAll(n => n.props && n.props.className === 'dra-help-phase-title')
+    .map(n => String(n.children ?? ''))
+    .join('|')
+  assert(texts.includes('准备'), 'phase 0 (prepare) rendered')
+  assert(texts.includes('第 1 步') || texts.includes('Step 1'), 'phase 1 (install) rendered')
+  assert(texts.includes('第 2 步') || texts.includes('Step 2'), 'phase 2 (generate Caddyfile) rendered')
+  assert(texts.includes('第 3 步') || texts.includes('Step 3'), 'phase 3 (run Caddy) rendered')
+  assert(texts.includes('第 4 步') || texts.includes('Step 4'), 'phase 4 (tunnel) rendered')
+  assert(texts.includes('第 5 步') || texts.includes('Step 5'), 'phase 5 (mobile access) rendered')
+
+  // Commands shown in code blocks.
+  const codes = root.findAll(n => n.props && n.props.className === 'dra-help-code')
+    .map(n => String(n.children ?? ''))
+    .join('\n')
+  assert(codes.includes('caddy run --config ./Caddyfile'), 'mac caddy command present')
+  assert(codes.includes('cloudflared tunnel --url http://127.0.0.1:8081'), 'tunnel command present')
+  assert(codes.includes('brew install caddy cloudflared'), 'mac install command present')
+
+  tree.unmount()
+}
+
 summary('accordion-render')

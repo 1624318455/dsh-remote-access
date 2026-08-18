@@ -171,6 +171,38 @@ const CSS = `
 .dra-lock-card h2 { margin: 0; font-size: 17px; }
 .dra-lock-error { color: #f87171; font-size: 12.5px; min-height: 16px; }
 .dra-lock-hint { opacity: .62; font-size: 11.5px; line-height: 1.5; }
+
+/* --- help / usage guide ------------------------------------------------ */
+.dra-help { gap: 12px; }
+.dra-help-intro { font-size: 12.5px; line-height: 1.6; opacity: .9; }
+.dra-help-goal {
+  border: 1px solid var(--dsw-alias-border, rgba(128,128,140,.22));
+  border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px;
+}
+.dra-help-goal-title { font-weight: 600; font-size: 12.5px; margin-bottom: 2px; }
+.dra-help-goal-line { font-size: 12.5px; line-height: 1.55; }
+.dra-help-goal-result { font-weight: 600; }
+.dra-help-phase { display: flex; flex-direction: column; gap: 6px; }
+.dra-help-phase-title { font-weight: 600; font-size: 13px; }
+.dra-help-sub { font-size: 12.5px; opacity: .9; }
+.dra-help-list { margin: 0; padding-left: 18px; font-size: 12.5px; line-height: 1.65; }
+.dra-help-list li { margin: 2px 0; }
+.dra-help-code {
+  white-space: pre-wrap; word-break: break-all;
+  margin: 0; padding: 8px 10px; border-radius: 7px;
+  background: var(--dsw-input-bg, rgba(128,128,140,.09));
+  border: 1px solid var(--dsw-alias-border, rgba(128,128,140,.2));
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px; line-height: 1.55; overflow-x: auto;
+}
+.dra-help-tunnel { color: #4c9aff; }
+.dra-help-plain { font-size: 12.5px; line-height: 1.6; }
+.dra-help-expected {
+  border-left: 3px solid #4ade80; padding: 6px 10px; margin-top: 2px;
+  background: rgba(74, 222, 128, .07); border-radius: 0 6px 6px 0;
+  font-size: 12.5px; line-height: 1.55;
+}
+.dra-help-stepsdone { font-size: 12px; opacity: .8; }
 `
 
 let injected = false

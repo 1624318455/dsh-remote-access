@@ -11,7 +11,7 @@
  *       ├─ 公网安全配置（安全等级 2）
  *       │    └─ 步骤折叠 步骤1 哈希 → 步骤2 参数 → 步骤3 Caddyfile/命令
  *       ├─ 安全风险审计
- *       └─ 小白使用指引
+ *       └─ 使用指引
  *
  * Inner section headers carry live status badges so the whole configuration
  * state is scannable without expanding anything. The Caddy steps auto-advance:
@@ -423,7 +423,7 @@ export function RemoteAccessCard(props: RemoteAccessCardProps): JSX.Element {
               )}
             </div>
 
-            {/* 小白使用指引 */}
+            {/* 使用指引 */}
             <div className="dra-acc-item">
               <button
                 type="button"
@@ -435,32 +435,107 @@ export function RemoteAccessCard(props: RemoteAccessCardProps): JSX.Element {
                 <span className="dra-acc-title">{t('help.section')}</span>
               </button>
               {openSection === 'help' && (
-                <div className="dra-acc-body">
-                  <div className="dra-muted">{t('help.intro')}</div>
-                  <div>{t('help.download')}</div>
-                  <ul>
-                    <li>{t('help.downloadMac')}</li>
-                    <li>{t('help.downloadWin')}</li>
-                  </ul>
-                  <div><a href="https://github.com/caddyserver/caddy/releases" target="_blank" rel="noreferrer">{t('help.github')}</a></div>
-                  <div>{t('help.step2')}</div>
-                  <ul>
-                    <li>{t('help.step2Mac')}</li>
-                    <li>{t('help.step2Win')}</li>
-                  </ul>
-                  <div>{t('help.step3')}</div>
-                  <div>{t('help.step4')}</div>
-                  <div>{t('help.step5')}</div>
-                  <code>{t('help.tunnel')}</code>
-                  <div>{t('help.pitfalls')}</div>
-                  <ul>
-                    <li>{t('help.pitfall1')}</li>
-                    <li>{t('help.pitfall2')}</li>
-                    <li>{t('help.pitfall3')}</li>
-                    <li>{t('help.pitfall4')}</li>
-                    <li>{t('help.pitfall5')}</li>
-                  </ul>
+                <div className="dra-acc-body dra-help">
+                  <div className="dra-help-intro">{t('help.intro')}</div>
+
+                  {/* 流程目标 */}
+                  <div className="dra-help-goal">
+                    <div className="dra-help-goal-title">{t('help.mode.intro')}</div>
+                    <div className="dra-help-goal-line">{t('help.mode.inner')}</div>
+                    <div className="dra-help-goal-line">{t('help.mode.caddy')}</div>
+                    <div className="dra-help-goal-line">{t('help.mode.tunnel')}</div>
+                    <div className="dra-help-goal-line dra-help-goal-result">{t('help.mode.result')}</div>
+                  </div>
+
+                  {/* 准备 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase0')}</div>
+                    <ul className="dra-help-list">
+                      <li>{t('help.p0a')}</li>
+                      <li>{t('help.p0b')}</li>
+                      <li>{t('help.p0c')}</li>
+                    </ul>
+                  </div>
+
+                  {/* 第 1 步 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase1')}</div>
+                    <div className="dra-help-sub">{t('help.installMac')}</div>
+                    <pre className="dra-help-code">{t('help.installMacCmd')}</pre>
+                    <div className="dra-help-sub">{t('help.installWin')}</div>
+                    <ul className="dra-help-list">
+                      <li>{t('help.installWin1')}</li>
+                      <li>{t('help.installWin2')}</li>
+                    </ul>
+                    <div className="dra-help-expected">{t('help.verifyInstall')}</div>
+                  </div>
+
+                  {/* 第 2 步 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase2')}</div>
+                    <ul className="dra-help-list">
+                      <li>{t('help.step2a')}</li>
+                      <li>{t('help.step2b')}</li>
+                      <li>{t('help.step2c')}</li>
+                      <li>{t('help.step2d')}</li>
+                    </ul>
+                  </div>
+
+                  {/* 第 3 步 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase3')}</div>
+                    <div className="dra-help-sub">{t('help.saveMac')}</div>
+                    <pre className="dra-help-code">{t('help.saveMacCmd')}</pre>
+                    <div className="dra-help-sub">{t('help.saveWin')}</div>
+                    <div className="dra-help-sub">{t('help.startMac')}</div>
+                    <pre className="dra-help-code">{t('help.startMacCmd')}</pre>
+                    <div className="dra-help-sub">{t('help.startWin')}</div>
+                    <pre className="dra-help-code">{t('help.startWinCmd')}</pre>
+                    <div className="dra-help-expected">{t('help.verifyCaddy')}</div>
+                  </div>
+
+                  {/* 第 4 步 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase4')}</div>
+                    <div className="dra-help-sub">{t('help.tunnelIntro')}</div>
+                    <pre className="dra-help-code dra-help-tunnel">{t('help.tunnel')}</pre>
+                    <div className="dra-help-expected">{t('help.verifyTunnel')}</div>
+                  </div>
+
+                  {/* 第 5 步 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.phase5')}</div>
+                    <ul className="dra-help-list">
+                      <li>{t('help.mobileIntro')}</li>
+                      <li>{t('help.mobileAuth')}</li>
+                      <li>{t('help.mobileDone')}</li>
+                    </ul>
+                    <div className="dra-help-goal-line dra-help-goal-result">{t('help.mobileResult')}</div>
+                  </div>
+
+                  {/* 速查 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.consolidate')}</div>
+                    <div className="dra-help-plain">{t('help.cmd1')}</div>
+                    <pre className="dra-help-code">{t('help.cmd2')}</pre>
+                    <pre className="dra-help-code">{t('help.cmd3')}</pre>
+                  </div>
+
+                  {/* 常见坑 */}
+                  <div className="dra-help-phase">
+                    <div className="dra-help-phase-title">{t('help.pitfalls')}</div>
+                    <ul className="dra-help-list">
+                      <li>{t('help.pitfall1')}</li>
+                      <li>{t('help.pitfall2')}</li>
+                      <li>{t('help.pitfall3')}</li>
+                      <li>{t('help.pitfall4')}</li>
+                      <li>{t('help.pitfall5')}</li>
+                      <li>{t('help.pitfall6')}</li>
+                    </ul>
+                  </div>
+
                   <div className="dra-banner-danger">{t('help.risk')}</div>
+                  <div className="dra-help-stepsdone">{t('help.stepsDone')}</div>
                 </div>
               )}
             </div>
