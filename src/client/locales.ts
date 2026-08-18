@@ -105,6 +105,16 @@ const zh: Dict = {
   'overlay.hint2': '忘记密码？请修改 DSH 配置（移除 pagePasswordHash）或卸载插件后重新配置',
 
   // Copied feedback
+
+  // Accordion header badges
+  'badge.lockOn': '页面锁已启用',
+  'badge.lockOff': '页面锁未启用',
+  'badge.hashReady': '哈希已生成',
+  'badge.hashPending': '待生成哈希',
+  'badge.auditSafe': '审计正常',
+  'badge.auditDanger': '{n} 项高危',
+  'badge.auditUnknown': '待审计',
+
   'copied': '已复制',
 }
 
@@ -189,6 +199,16 @@ const en: Dict = {
   'overlay.error.notConfigured': 'Page lock has no password configured: save one in the plugin settings, or disable the lock',
   'overlay.hint': 'Level 1: protects the page only — API/WebSocket stay exposed, no public tunneling',
   'overlay.hint2': 'Forgot the password? Edit the DSH config (remove pagePasswordHash) or uninstall the plugin to reconfigure',
+
+  // Accordion header badges
+  'badge.lockOn': 'Lock enabled',
+  'badge.lockOff': 'Lock off',
+  'badge.hashReady': 'Hash ready',
+  'badge.hashPending': 'No hash yet',
+  'badge.auditSafe': 'Audit OK',
+  'badge.auditDanger': '{n} high-risk',
+  'badge.auditUnknown': 'Not audited',
+
   'copied': 'Copied',
 }
 

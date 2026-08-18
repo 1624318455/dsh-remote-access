@@ -60,6 +60,65 @@ const CSS = `
 .dra-muted { opacity: .6; font-size: 12px; }
 .dra-copied { color: #4ade80; font-size: 12px; }
 
+/* --- card header + layered accordion ----------------------------------- */
+.dra-card-head {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 2px 2px 8px;
+}
+.dra-card-head h4 { margin: 0; font-size: 14px; font-weight: 600; }
+
+.dra-accordion {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.dra-accordion-inner {
+  margin-top: 2px;
+}
+.dra-acc-item {
+  border: 1px solid var(--dsw-alias-border, rgba(128,128,140,.2));
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--dsw-card-bg, transparent);
+}
+.dra-acc-header {
+  width: 100%; box-sizing: border-box;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px;
+  border: none; border-radius: 0;
+  background: transparent; color: inherit;
+  font: inherit; font-size: 13px; cursor: pointer;
+  text-align: left;
+}
+.dra-acc-header:hover { background: var(--dsw-input-bg, rgba(128,128,140,.08)); }
+.dra-acc-caret {
+  flex: none; width: 14px; text-align: center;
+  color: var(--dsw-alias-text-2, rgba(255,255,255,.55));
+  transition: transform .15s ease;
+}
+.dra-acc-title { flex: 1; font-weight: 500; }
+.dra-acc-badge {
+  flex: none; font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 999px;
+  background: var(--dsw-input-bg, rgba(128,128,140,.14));
+}
+.dra-acc-badge.dra-ok { color: #4ade80; }
+.dra-acc-badge.dra-warn { color: #fbbf24; }
+.dra-acc-badge.dra-danger { color: #f87171; }
+.dra-acc-badge.dra-muted { opacity: .65; }
+
+.dra-acc-body {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 10px 12px 14px;
+  border-top: 1px solid var(--dsw-alias-border, rgba(128,128,140,.14));
+}
+
+/* inner Caddy steps */
+.dra-step-item .dra-acc-header { padding-left: 20px; }
+.dra-step-num { flex: none; width: 18px; text-align: center; font-weight: 600; }
+.dra-step-divider {
+  height: 1px; margin: 2px 0;
+  background: var(--dsw-alias-border, rgba(128,128,140,.16));
+}
+
 /* --- lock overlay ------------------------------------------------------- */
 .dra-lock-backdrop {
   position: fixed; inset: 0; z-index: 99999;
