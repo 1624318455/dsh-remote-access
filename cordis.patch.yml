@@ -1,0 +1,4 @@
+# dsh-remote-access bundle: register the remote-access auth plugin (host routes + client UI).
+- insert:
+    - id: dsh-remote-access
+      name: '@dsh-external/dsh-remote-access'
