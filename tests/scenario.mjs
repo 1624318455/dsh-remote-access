@@ -167,9 +167,9 @@ const sleep = (ms = 0) => new Promise((r) => setTimeout(r, ms))
   assertEqual(caddy.ok, true, 'B2: caddyfile generated')
   const out = controller.getSnapshot().caddyOutput
   assert(out.includes(':8081 {'), 'B2: default port 8081')
-  assert(out.includes('dshuser ' + gen.hash), 'B2: user + hash in basicauth')
+  assert(out.includes('dshuser ' + gen.hash), 'B2: user + hash in basic_auth')
+  assert(out.includes('basic_auth'), 'B2: basic_auth directive present')
   assert(out.includes('reverse_proxy http://127.0.0.1:3080'), 'B2: backend proxied')
-  assert(out.includes('websocket'), 'B2: websocket directive present')
 
   // B3. Custom parameters.
   controller.setField('caddyPortInput', '9090')

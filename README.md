@@ -72,14 +72,14 @@ DSH 鉴权辅助插件：页面密码锁，同时生成 Caddy 反向代理配置
 
 ```caddyfile
 :8081 {
-    basicauth * {
+    basic_auth * {
         dshuser $2a$14$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
-    reverse_proxy http://127.0.0.1:3080 {
-        websocket
-    }
+    reverse_proxy http://127.0.0.1:3080
 }
 ```
+
+> 说明：`basic_auth` 是新版 Caddy 的鉴权指令（旧 `basicauth` 已废弃）；普通 `reverse_proxy` 会自动升级 WebSocket 连接，无需 `websocket` 子指令。本模板已用 Caddy v2.11 实测校验通过。
 
 ### Mac 启动命令
 

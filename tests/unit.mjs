@@ -24,16 +24,15 @@ const NOW = 1_700_000_000_000
 // caddy.ts
 // ---------------------------------------------------------------------------
 {
-  // Exact output shape from the plugin spec.
+  // Exact output shape (validated against real Caddy v2.11: basic_auth is the
+  // current directive, plain reverse_proxy upgrades WebSocket automatically).
   const out = buildCaddyfile({ port: 8081, hash: FIXTURE_HASH })
   assertDeepEqual(out, [
     ':8081 {',
-    '    basicauth * {',
+    '    basic_auth * {',
     `        dshuser ${FIXTURE_HASH}`,
     '    }',
-    '    reverse_proxy http://127.0.0.1:3080 {',
-    '        websocket',
-    '    }',
+    '    reverse_proxy http://127.0.0.1:3080',
     '}',
     '',
   ].join('\n'), 'buildCaddyfile default shape')

@@ -12,10 +12,11 @@
  *      shim that stubs `window.__ModuleLoader__`).
  */
 
-import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs'
+import { readFileSync, existsSync, statSync, readdirSync, writeFileSync as writeConfig, rmSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { assert, assertEqual, summary } from './helpers.mjs'
+import { assert, assertEqual, summary, FIXTURE_HASH } from './helpers.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -124,6 +125,40 @@ function latestMtime(dir) {
     else if (/\.(ts|tsx)$/.test(entry.name)) latest = Math.max(latest, statSync(p).mtimeMs)
   }
   return latest
+}
+
+summary('smoke')
+
+// --- 6. Generated Caddyfile validates with the real Caddy binary -----------
+// If `caddy` is installed, run `caddy validate` on the plugin's generated
+// config to prove it is accepted by the current Caddy version.
+{
+  let hasCaddy = false
+  // Resolve `caddy` from PATH or the common Homebrew location (subprocess PATH
+  // may differ from the interactive shell's).
+  const caddyBin = (() => {
+    try { execFileSync('caddy', ['version'], { stdio: 'ignore' }); return 'caddy' } catch { /* continue */ }
+    const candidates = ['/opt/homebrew/bin/caddy', '/usr/local/bin/caddy']
+    for (const c of candidates) { if (existsSync(c)) return c }
+    return null
+  })()
+  hasCaddy = caddyBin !== null
+  if (hasCaddy) {
+    const mod = await import('../lib/index.js')
+    const caddyLib = await import('../src/lib/caddy.ts')
+    const configFile = join(ROOT, '.caddyfile-test')
+    writeConfig(configFile, caddyLib.buildCaddyfile({ port: 18081, hash: FIXTURE_HASH, backend: 'http://127.0.0.1:3080' }))
+    try {
+      execFileSync(caddyBin, ['validate', `--config=${configFile}`, '--adapter', 'caddyfile'], { stdio: 'pipe' })
+      assert(true, 'generated Caddyfile validates with installed Caddy')
+    } catch (e) {
+      const msg = String(e.stderr || e.message)
+      assert(false, `generated Caddyfile rejected by Caddy: ${msg.slice(0, 300)}`)
+    }
+    rmSync(configFile, { force: true })
+  } else {
+    console.log('  (skipped caddy binary validation — caddy not in PATH)')
+  }
 }
 
 summary('smoke')

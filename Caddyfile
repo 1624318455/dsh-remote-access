@@ -1,0 +1,8 @@
+:8081 {
+    basicauth * {
+        dshuser $2b$12$pGIjA/9CtFKmOiXm2JWcz.NzXkyrOnt8QJz/bmrDRh8ZUK4gpLaIK
+    }
+    reverse_proxy http://127.0.0.1:3080 {
+        websocket
+    }
+}
