@@ -4,3 +4,5 @@ lib/
 *.tgz
 .DS_Store
 *.log
+
+.dsh-vision-router/
