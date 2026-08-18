@@ -5,10 +5,6 @@
 
 const CSS = `
 .dra-card {
-  display: flex; flex-direction: column; gap: 14px;
-  padding: 16px 18px; border-radius: 12px;
-  border: 1px solid var(--dsw-alias-border-strong, rgba(128,128,140,.25));
-  background: var(--dsw-card-bg, transparent);
   font-size: 13px; line-height: 1.55;
 }
 .dra-section {
@@ -60,13 +56,51 @@ const CSS = `
 .dra-muted { opacity: .6; font-size: 12px; }
 .dra-copied { color: #4ade80; font-size: 12px; }
 
-/* --- card header + layered accordion ----------------------------------- */
-.dra-card-head {
-  display: flex; flex-direction: column; gap: 4px;
-  padding: 2px 2px 8px;
+/* --- outer card shell (web-search style collapsible card) --------------- */
+.dra-card {
+  list-style: none;
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128,128,140,.25));
+  border-radius: 12px;
+  background: var(--dsw-alias-bg-layer-3, transparent);
+  transition: border-color .16s, background .16s;
 }
-.dra-card-head h4 { margin: 0; font-size: 14px; font-weight: 600; }
+.dra-card:hover { border-color: var(--dsw-alias-label-dimmed, rgba(128,128,140,.45)); }
+.dra-card.dra-open {
+  background: var(--dsw-alias-bg-layer-2, transparent);
+  border-color: var(--dsw-alias-label-dimmed, rgba(128,128,140,.45));
+}
+.dra-card-header {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+.dra-card-header:focus-visible { outline: 2px solid var(--dsw-alias-brand-primary, #4c9aff); outline-offset: -2px; }
+.dra-card-head-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.dra-card-name { font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--dsw-alias-label-primary, #eee); }
+.dra-card-description { font-size: 13px; line-height: 1.5; color: var(--dsw-alias-label-tertiary, rgba(255,255,255,.6)); }
+.dra-card-chevron {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary, rgba(255,255,255,.6));
+  transition: transform .16s;
+}
+.dra-card-chevron.dra-open { transform: rotate(180deg); }
+.dra-card-body {
+  border-top: 1px solid var(--dsw-alias-border-l2, rgba(128,128,140,.2));
+  margin: 0 14px;
+  padding: 12px 0 14px;
+}
 
+/* --- layered accordion ------------------------------------------------- */
 .dra-accordion {
   display: flex; flex-direction: column; gap: 6px;
 }
